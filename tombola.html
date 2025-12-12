@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Tombola Online</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+    }
+    h1 { color: #b30000; }
+    #tabellone {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 5px;
+        width: 60%;
+        margin: 20px auto;
+    }
+    .numero {
+        padding: 10px;
+        background: white;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+    }
+    .estratto {
+        background: #ffcc00 !important;
+        font-weight: bold;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 18px;
+        margin: 20px;
+        cursor: pointer;
+        background: #b30000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+    #ultimo {
+        font-size: 40px;
+        margin-top: 20px;
+        color: #b30000;
+    }
+</style>
+</head>
+<body>
+
+<h1>Tombola Online</h1>
+
+<button onclick="estraiNumero()">Estrai Numero</button>
+
+<div id="ultimo">—</div>
+
+<div id="tabellone"></div>
+
+<script>
+    const tabellone = document.getElementById("tabellone");
+    const ultimo = document.getElementById("ultimo");
+
+    let numeri = [];
+    for (let i = 1; i <= 90; i++) numeri.push(i);
+
+    let estratti = [];
+
+    // Crea tabellone
+    numeri.forEach(n => {
+        const cella = document.createElement("div");
+        cella.className = "numero";
+        cella.id = "n" + n;
+        cella.innerText = n;
+        tabellone.appendChild(cella);
+    });
+
+    // Estrai numero
+    function estraiNumero() {
+        if (numeri.length === 0) {
+            alert("Tutti i numeri sono stati estratti!");
+            return;
+        }
+        const indice = Math.floor(Math.random() * numeri.length);
+        const numeroEstratto = numeri.splice(indice, 1)[0];
+        estratti.push(numeroEstratto);
+
+        document.getElementById("n" + numeroEstratto).classList.add("estratto");
+        ultimo.innerText = numeroEstratto;
+    }
+</script>
+
+</body>
+</html>
